@@ -1,0 +1,64 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Ships</li>
+  </ol>
+</nav>
+<div>
+  <ngx-loading
+    [show]="loading"
+    [config]="{ backdropBorderRadius: '14px' }"
+  ></ngx-loading>
+
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title">Ships</h4>
+    </div>
+    <div class="card-body">
+      <button class="btn btn-sm btn-primary mr-sm-2">
+        Place for name filter
+      </button>
+    </div>
+
+    <div class="card">
+      <h3 class="card-header">
+        Ships
+        <a
+          [routerLink]="['/ships', 'new']"
+          class="btn btn-sm btn-primary float-right"
+          placement="left"
+          tooltipClass="custom-tooltip"
+          >Add ship</a
+        >
+        <ng-template #ttContent>
+          Log a new <strong class="text-primary text-uppercase">ship</strong>
+        </ng-template>
+
+      </h3>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <th>Name</th>
+            <th>Id number</th>
+            <th>Skipper</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ship of ships">
+              <td>{{ ship.name }}</td>
+              <td>{{ ship.idNumber }}</td>
+              <td>{{ ship.skipper.name }}</td>
+              <td>
+                <a
+                  [routerLink]="['/ships', ship.shipId]"
+                  class="btn btn-info btn-sm mr-2"
+                  >Edit</a
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

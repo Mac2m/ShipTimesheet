@@ -1,0 +1,59 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Events</li>
+  </ol>
+</nav>
+<div>
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+
+    <div class="card">
+      <h3 class="card-header">
+        Events
+        <a [routerLink]="['/events', 'new']" class="btn btn-sm btn-primary float-right"
+          placement="left" tooltipClass="custom-tooltip">Add event</a>
+        <ng-template #ttContent>
+          Log a new <strong class="text-primary text-uppercase">event</strong>
+        </ng-template>
+  
+        <!-- <button class="btn btn-success" ngbTooltip="This is just a test" triggers="manual"
+            #t="ngbTooltip" (click)="t.open()" [autoClose]="'inside'">
+          Tooltip Test
+        </button> -->
+      </h3>
+      <div class="card-body">
+        <div class="input-group col-sm-3 mb-2">
+          <input class="form-control" placeholder="yyyy-mm-dd" name="edatefilter" [(ngModel)]="dateFilter" [maxDate]="maxDate"
+            ngbDatepicker #d="ngbDatepicker" (dateSelect)=filterData()>
+          <div class="input-group-append">
+            <button class="btn btn-primary calendar" (click)="d.toggle()" type="button"></button>
+            <button class="btn btn-sm btn-primary" (click)="clear()" type="button" >clear</button>
+          </div>
+        </div>
+
+        <table class="table table-striped">
+          <thead>
+            <th>Event Time</th>
+            <th>Type</th>
+            <th>Ship name</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let event of filteredEvents" [ngClass]="{'table-success': event.eventType===1, 'table-danger': event.eventType===2}">
+              <td>{{event.eventTime | date:'dd/MM/yyyy HH:mm'}}</td>
+              <td *ngIf="event.eventType===1">Arrival</td>
+              <td *ngIf="event.eventType===2">Departure</td>
+              <td><a [routerLink]="['/ships', event.shipId]"
+                placement="left" tooltipClass="custom-tooltip">{{event.ship?.name}}</a>
+              </td>
+              <td>
+                <a [routerLink]="['/events', event.eventId]" class="btn btn-info btn-sm mr-2">Edit</a>
+                <button class="btn btn-danger btn-sm" (click)="deleteEvent(event.eventId)">Delete</button>
+              </td>
+  
+            </tr>
+          </tbody>
+        </table>
+  
+      </div>
+    </div>

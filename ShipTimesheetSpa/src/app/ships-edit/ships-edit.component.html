@@ -1,0 +1,47 @@
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/ships']">Ships</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Ship {{ ship.name }}</li>
+    </ol>
+  </nav>
+  <ngx-loading
+    [show]="loading"
+    [config]="{ backdropBorderRadius: '14px' }"
+  ></ngx-loading>
+
+  <div class="card">
+    <h3 class="card-header">Ship</h3>
+    <div class="card-body">
+      <form>
+        <div class="form-group row">
+          <label class="col-form-label col-sm-2" for="sname">Name:</label>
+          <div class="col-sm-6">
+            <input class="form-control" name="sname" type="text" [(ngModel)]="ship.name">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-form-label col-sm-2" for="sid">Id number:</label>
+          <div class="col-sm-6">
+            <input class="form-control" name="sid" type="text" [(ngModel)]="ship.idNumber">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="sskipper">Skipper:</label>
+          <select [(ngModel)]="ship.skipperId" name="sskipper" class="form-control" id="skipperSelect">
+            <option *ngFor="let skipper of skippers" [ngValue]="skipper.skipperId">
+              {{skipper.name}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-4 mt-sm-3">
+            <button class="btn btn-primary mr-sm-2" (click)="save()">Save</button>
+            <a class="btn btn-secondary" [routerLink]="['/ships']">Cancel</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
