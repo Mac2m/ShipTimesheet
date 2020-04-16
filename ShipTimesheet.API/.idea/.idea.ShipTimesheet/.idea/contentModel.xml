@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/Library/Caches/Rider2019.3/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.3/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_ShipTimesheet.1373449228.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="ShipTimesheet.API" t="IncludeRecursive">
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="ConfigureSwaggerOptions.cs" t="Include" />
+        <e p="Controllers" t="Include">
+          <e p="v1" t="Include">
+            <e p="EventsController.cs" t="Include" />
+            <e p="ShipsController.cs" t="Include" />
+            <e p="SkippersController.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Dtos" t="Include">
+          <e p="EventCreateDto.cs" t="Include" />
+          <e p="EventDto.cs" t="Include" />
+          <e p="EventUpdateDto.cs" t="Include" />
+          <e p="ShipCreateDto.cs" t="Include" />
+          <e p="ShipDto.cs" t="Include" />
+          <e p="SkipperCreateDto.cs" t="Include" />
+          <e p="SkipperDto.cs" t="Include" />
+        </e>
+        <e p="Entities" t="Include">
+          <e p="EventEntity.cs" t="Include" />
+          <e p="EventType.cs" t="Include" />
+          <e p="ShipEntity.cs" t="Include" />
+          <e p="SkipperEntity.cs" t="Include" />
+        </e>
+        <e p="Helpers" t="Include">
+          <e p="CorsExtension.cs" t="Include" />
+          <e p="DynamicExtensions.cs" t="Include" />
+          <e p="ExceptionExtension.cs" t="Include" />
+          <e p="QueryParametersExtensions.cs" t="Include" />
+          <e p="VersioningExtension.cs" t="Include" />
+        </e>
+        <e p="MappingProfiles" t="Include">
+          <e p="EventMappingProfile.cs" t="Include" />
+          <e p="ShipMappingProfile.cs" t="Include" />
+          <e p="SkipperMappingProfile.cs" t="Include" />
+        </e>
+        <e p="Models" t="Include">
+          <e p="LinkDto.cs" t="Include" />
+          <e p="QueryParameters.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="ShipTimesheet.API.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Repositories" t="Include">
+          <e p="EventRepository.cs" t="Include" />
+          <e p="IEventRepository.cs" t="Include" />
+          <e p="IShipRepository.cs" t="Include" />
+          <e p="ISkipperRepository.cs" t="Include" />
+          <e p="Shiprepository.cs" t="Include" />
+          <e p="ShipTimesheetDbContext.cs" t="Include" />
+          <e p="SkipperRepository.cs" t="Include" />
+        </e>
+        <e p="Services" t="Include">
+          <e p="ISeedDataService.cs" t="Include" />
+          <e p="SeedDataService.cs" t="Include" />
+          <e p="TcpClientService.cs" t="Include" />
+        </e>
+        <e p="ShipTimesheet.API.csproj" t="IncludeRecursive" />
+        <e p="Startup.cs" t="Include" />
+      </e>
+      <e p="ShipTimesheet.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>

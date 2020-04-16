@@ -7,7 +7,7 @@ import { map, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ShipTimesheetApiService {
-  private baseUrl = 'https://localhost:44378/api/v1';
+  private baseUrl = 'https://localhost:5001/api/v1';
 
   constructor(private http: HttpClient) { }
 
