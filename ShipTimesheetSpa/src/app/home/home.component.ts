@@ -1,50 +1,95 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ShipTimesheetApiService } from '../services/ship-timesheet-api.service';
-import {DayPilot, DayPilotSchedulerComponent, DayPilotCalendarComponent} from 'daypilot-pro-angular';
-import { DatePipe } from '@angular/common';
+import { FullCalendarComponent } from '@fullcalendar/angular';
+import { EventInput } from '@fullcalendar/core';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGrigPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import bootstrapPlugin from '@fullcalendar/bootstrap';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
-  config: any = {
-    viewType: 'Day',
-    startDate: '2020-04-13',
-    days: 29
+  closeResult = '';
+  calendarVisible = true;
+  calendarPlugins = [
+    dayGridPlugin,
+    timeGrigPlugin,
+    interactionPlugin,
+    bootstrapPlugin,
+  ];
+  calendarWeekends = true;
+  calendarEvents: EventInput[] = [];
+  theme: string = 'bootstrap';
+  fontAwesome = false;
+  timeFormat = {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
   };
-  public events = [];
-  public eventsTo = [];
+  slotLabelFormat= {
+    hour: 'numeric',
+    minute: '2-digit',
+    omitZeroMinute: true,
+    hour12: false
+  };
+  locale = 'pl';
 
-  constructor(private api: ShipTimesheetApiService, private datePipie: DatePipe) { }
+  public events = [];
+  public event: { eventTime: any; shipId: any; eventType: any; } = { eventTime: '', shipId: '', eventType: null };
+  public ships: any[];
+
+  public dateFilter: {year: any, month: any, day: any};
+
+  constructor(
+    private api: ShipTimesheetApiService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit() {
-    this.api.getEvents().subscribe(data => {
+    this.api.getEvents().subscribe((data) => {
       this.events = data;
-      this.MapData();
-  });
+      this.calendarEvents = this.events.map((event: any) => {
+        return {
+          title: event.ship.name,
+          date: event.eventTime,
+          type: event.eventType,
+          color: event.eventType === 1 ? 'green' : 'red',
+        };
+      });
+    });
+    this.api.getShips().subscribe(data => {
+      this.ships = data;
+    });
   }
 
-  MapData() {
-    this.events.forEach(element => {
-      let eventTo = new EventTo();
-      eventTo.id = element.eventId;
-      eventTo.resource = element.ship.name;
-      eventTo.start = this.datePipie.transform(element.eventTime, 'yyyy-MM-dd');
-      eventTo.end = this.datePipie.transform(element.eventTime, 'yyyy-MM-dd');
-      eventTo.text = element.ship.name;
-      this.eventsTo.push(eventTo);
+  gotoDate() {
+    let calendarApi = this.calendarComponent.getApi();
+    calendarApi.gotoDate(new Date(this.dateFilter.year, this.dateFilter.month - 1, this.dateFilter.day).toISOString());
+  }
+
+  clear() {
+    this.dateFilter = undefined;
+    let calendarApi = this.calendarComponent.getApi();
+    calendarApi.gotoDate(new Date().toISOString());
+  }
+
+  handleDateClick(content, arg) {
+    this.event.eventTime = arg.date;
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+  }
+
+  saveNewEvent(){
+    this.api.addEvent(this.event).subscribe(data => {
+      this.ngOnInit();
+      this.modalService.dismissAll();
     });
   }
 }
 
-export class EventTo
-{
-  id: any;
-  start: any;
-  end: any;
-  text: string;
-  resource: string;
-}

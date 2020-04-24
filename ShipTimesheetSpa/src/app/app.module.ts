@@ -6,7 +6,8 @@ import { DatePipe } from '@angular/common';
 // Third party modules
 import { NgxLoadingModule } from 'ngx-loading';
 import { NgbModule, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
-import {DayPilotModule} from "daypilot-pro-angular";
+import { FullCalendarModule } from '@fullcalendar/angular';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,7 +22,7 @@ import { EventsEditComponent } from './events-edit/events-edit.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ShipTimesheetApiService } from './services/ship-timesheet-api.service';
 import { FormsModule } from '@angular/forms';
-import { DateStringAdapterService } from './services/DateStringAdapter.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -43,12 +44,12 @@ import { DateStringAdapterService } from './services/DateStringAdapter.service';
     FormsModule,
     NgbModule,
     BrowserAnimationsModule,
-    DayPilotModule
+    FullCalendarModule,
+    FontAwesomeModule
   ],
   providers: [
     ShipTimesheetApiService,
     DatePipe,
-    { provide: NgbDateAdapter, useClass: DateStringAdapterService }
   ],
   bootstrap: [AppComponent]
 })

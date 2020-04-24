@@ -1,7 +1,71 @@
+<ng-template #content let-modal>
+  <div class="modal-header mx-auto">
+    <h4 class="modal-title" id="modal-basic-title">Add event</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body mx-auto">
+    <form>
+      <div class="form-group row">
+        <span>Event time: {{ event.eventTime | date:'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+      <div class="form-group row">
+        <div class="btn-group btn-group-toggle" ngbRadioGroup name="etype" [(ngModel)]="event.eventType">
+          <label ngbButtonLabel class="btn-primary"><input ngbButton type="radio" value="1">Arrival</label>
+          <label ngbButtonLabel class="btn-primary"><input ngbButton type="radio" value="2">Departure</label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="shipSelect">Ship:</label>
+        <select [(ngModel)]="event.shipId" name="eship" class="form-control" id="shipSelect">
+          <option *ngFor="let ship of ships" [ngValue]="ship.shipId">
+            {{ship.name}}
+          </option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer mx-auto">
+    <button type="button" class="btn btn-outline-dark" (click)="saveNewEvent()">Save</button>
+  </div>
+</ng-template>
+
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item active" aria-current="page">Home</li>
   </ol>
 </nav>
 
-<daypilot-calendar [config]="config" [events]="eventsTo"></daypilot-calendar>
+<div class='app-top'>
+  <div class="input-group mb-2">
+    <input class="form-control" placeholder="yyyy-mm-dd" name="edatefilter" [(ngModel)]="dateFilter"
+      ngbDatepicker #d="ngbDatepicker" (dateSelect)=gotoDate()>
+    <div class="input-group-append">
+      <button class="btn btn-primary calendar" (click)="d.toggle()" type="button"></button>
+      <button class="btn btn-sm btn-primary" (click)="clear()" type="button" >clear</button>
+    </div>
+  </div>
+</div>
+
+<div class='app-calendar' *ngIf="calendarVisible">
+  <full-calendar
+    #calendar
+    defaultView="dayGridMonth"
+    [header]="{
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+    }"
+    [plugins]="calendarPlugins"
+    [weekends]="calendarWeekends"
+    [events]="calendarEvents"
+    [themeSystem]="theme"
+    [bootstrapFontAwesome]="fontAwesome"
+    [eventTimeFormat]="timeFormat"
+    [slotLabelFormat]="slotLabelFormat"
+    [allDaySlot]=false
+    [locale]="locale"
+    (dateClick)="handleDateClick(content, $event)"
+  ></full-calendar>
+</div>

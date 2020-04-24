@@ -26,7 +26,7 @@
           <label class="col-form-label col-sm-2">Date:</label>
           <div class="col-sm-3">
             <div class="input-group">
-              <input class="form-control" placeholder="yyyy-mm-dd" name="edate" [(ngModel)]="event.eventTime" [maxDate]="maxDate"
+              <input class="form-control" placeholder="yyyy-mm-dd" name="edate" [(ngModel)]="startDate" [maxDate]="maxDate"
                 ngbDatepicker #d="ngbDatepicker">
               <div class="input-group-append">
                 <button class="btn btn-info calendar" (click)="d.toggle()" type="button"></button>

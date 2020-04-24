@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ShipTimesheetApiService } from '../services/ship-timesheet-api.service';
 import * as _ from 'lodash';
 import { NgbDateStruct, NgbDate } from '@ng-bootstrap/ng-bootstrap';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-events',
@@ -16,14 +15,15 @@ export class EventsComponent implements OnInit {
   public totals = {};
   public pageSize = 5;
   public currPage = 1;
-  public dateFilter = new Date();
+  public dateFilter: {year: any, month: any, day: any};
+  public dateNow = new Date();
   public filteredEvents = [];
   public maxDate: NgbDateStruct;
 
-constructor(private api: ShipTimesheetApiService, private datePipie: DatePipe) {
-  this.maxDate = NgbDate.from({ year: this.dateFilter.getFullYear(),
-     month: this.dateFilter.getMonth() + 1,
-     day: this.dateFilter.getDate() + 1 });
+constructor(private api: ShipTimesheetApiService) {
+  this.maxDate = NgbDate.from({ year: this.dateNow.getFullYear(),
+     month: this.dateNow.getMonth() + 1,
+     day: this.dateNow.getDate() + 1 });
  }
 
 ngOnInit() {
@@ -46,9 +46,7 @@ deleteEvent(id) {
 filterData() {
   this.loading = true;
   this.filteredEvents = this.events.filter(item => {
-      let itemDate = new Date(item.eventTime);
-      let dateTransformed = this.datePipie.transform(itemDate, 'yyyy-MM-dd');
-      return dateTransformed === this.datePipie.transform(this.dateFilter, 'yyyy-MM-dd');
+      return new Date(item.eventTime).toDateString() === new Date(this.dateFilter.year, this.dateFilter.month - 1, this.dateFilter.day).toDateString();
     }
   );
   this.loading = false;

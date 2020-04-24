@@ -19,7 +19,8 @@ export class EventsEditComponent implements OnInit {
   public loading = false;
   public startDate: any;
   public maxDate: NgbDateStruct;
-  public timeOfEvent: any;
+  public timeOfEvent: { hour: number; minute: number; } = { hour: 0, minute: 0};
+  public dateTime: any;
 
   constructor(private router: ActivatedRoute,
               private nav: Router,
@@ -37,8 +38,10 @@ export class EventsEditComponent implements OnInit {
         this.loading = true;
         this.api.getEvent(params.id).subscribe(data => {
           this.event = data;
-          let d = new Date(this.event.eventTime);
-          this.startDate = { year: d.getFullYear(), month: d.getMonth() + 1 };
+          this.dateTime = new Date(this.event.eventTime);
+          this.startDate = { year: this.dateTime.getFullYear(), month: this.dateTime.getMonth() + 1, day: this.dateTime.getDate() };
+          this.timeOfEvent.hour = new Date(this.event.eventTime).getHours();
+          this.timeOfEvent.minute = new Date(this.event.eventTime).getMinutes();
           this.loading = false;
         });
       }
@@ -47,9 +50,12 @@ export class EventsEditComponent implements OnInit {
 
   save() {
     this.loading = true;
-    let dateTime = new Date(this.event.eventTime);
-    dateTime.setHours(this.timeOfEvent.hour, this.timeOfEvent.minute);
-    this.event.eventTime = dateTime;
+    // let dateTime = new Date(this.event.eventTime);
+    // dateTime.setHours(this.timeOfEvent.hour, this.timeOfEvent.minute);
+    let date = new Date(this.startDate);
+    date.setHours(this.timeOfEvent.hour);
+    date.setMinutes(this.timeOfEvent.minute);
+    this.event.eventTime = date.toDateString();
     this.api.saveEvent(this.event).subscribe(data => {
       this.loading = false;
       this.nav.navigate(['/events']);

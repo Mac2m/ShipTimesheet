@@ -1,4 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+@import '~@fullcalendar/timegrid/main.css';
+@import '~@fullcalendar/bootstrap/main.css';
+
+.fc-icon:after {margin: 0 0; color: black} /*fix for arrows in fullcalendar bootstrap theme */
+
 body {
     padding-top: 92px;
     height: 100%;
