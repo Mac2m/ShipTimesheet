@@ -44,4 +44,24 @@
       </form>
     </div>
   </div>
+  <div class="card">
+    <h3 class="card-header">History of arrivals/departures</h3>
+    <div class="card-body">
+      <p-virtualScroller [value]="events" scrollHeight="300px" [itemSize]="40">
+        <ng-template let-event pTemplate="item" let-i="index">
+            <div class="ui-g event-item" [ngClass]="{'table-success': event.eventType===1, 'table-danger': event.eventType===2}">
+                <div class="ui-g-12 ui-md-2">
+                  <span>{{i}}</span>
+                </div>
+                <div class="ui-g-12 ui-md-2">
+                  <span>{{ event.eventType === 1 ? 'Arrival' : 'Departure'}}</span>
+                </div>
+                <div class="ui-g-12 ui-md-8">
+                  <span>EventTime: {{event?.eventTime | date:'dd/MM/yyyy HH:mm'}}</span>
+                </div>
+            </div>
+        </ng-template>
+    </p-virtualScroller>
+    </div>
+  </div>
 </div>

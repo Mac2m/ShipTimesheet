@@ -11,7 +11,7 @@ import { ShipTimesheetApiService } from '../services/ship-timesheet-api.service'
 export class ShipsEditComponent implements OnInit {
 
   public ship: any = {};
-  public events: any[];
+  public events = [];
   public skippers: any[];
   public loading = false;
   public startDate: any;
@@ -25,9 +25,6 @@ export class ShipsEditComponent implements OnInit {
      }
 
   ngOnInit() {
-    this.api.getEvents().subscribe(data => {
-      this.events = data;
-    });
     this.api.getSkippers().subscribe(data => {
       this.skippers = data;
     });
@@ -36,6 +33,7 @@ export class ShipsEditComponent implements OnInit {
         this.loading = true;
         this.api.getShip(params.id).subscribe(data => {
           this.ship = data;
+          this.events = data.events.sort((a, b) => (new Date(a.eventTime).toISOString() > new Date(b.eventTime).toISOString()) ? 1 : ((new Date(b.eventTime).toISOString() > new Date(a.eventTime).toISOString()) ? -1 : 0));
           this.loading = false;
         });
       }
