@@ -48,6 +48,13 @@
     <h3 class="card-header">History of arrivals/departures</h3>
     <div class="card-body">
       <p-virtualScroller [value]="events" scrollHeight="300px" [itemSize]="40">
+        <p-header>
+            <div class="ui-g">
+                <div class="ui-g-6 sort-container">
+                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange()" [style]="{'min-width':'140px','background-color':'#fff'}"></p-dropdown>
+                </div>
+            </div>
+        </p-header>
         <ng-template let-event pTemplate="item" let-i="index">
             <div class="ui-g event-item" [ngClass]="{'table-success': event.eventType===1, 'table-danger': event.eventType===2}">
                 <div class="ui-g-12 ui-md-2">

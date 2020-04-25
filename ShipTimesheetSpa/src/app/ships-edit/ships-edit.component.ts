@@ -17,6 +17,9 @@ export class ShipsEditComponent implements OnInit {
   public startDate: any;
   public maxDate: NgbDateStruct;
 
+  sortKey: string;
+  sortOptions: SelectItem[];
+
   constructor(private router: ActivatedRoute,
               private nav: Router,
               private api: ShipTimesheetApiService) {
@@ -33,7 +36,11 @@ export class ShipsEditComponent implements OnInit {
         this.loading = true;
         this.api.getShip(params.id).subscribe(data => {
           this.ship = data;
-          this.events = data.events.sort((a, b) => (new Date(a.eventTime).toISOString() > new Date(b.eventTime).toISOString()) ? 1 : ((new Date(b.eventTime).toISOString() > new Date(a.eventTime).toISOString()) ? -1 : 0));
+          this.events = data.events;
+          this.sortOptions = [
+            {label: 'Newest First', value: '!1eventTime'},
+            {label: 'Oldest First', value: 'eventTime'}
+        ];
           this.loading = false;
         });
       }
@@ -52,4 +59,33 @@ export class ShipsEditComponent implements OnInit {
     console.log(`Popover open state: ${pop.isOpen()}`);
   }
 
+  onSortChange() {
+    if (this.sortKey.indexOf('!') === 0)
+        this.sort(-1);
+    else
+        this.sort(1);
+}
+
+sort(order: number): void {
+    let events = [...this.events];
+    events.sort((data1, data2) => {
+        let value1 = data1.eventTime;
+        let value2 = data2.eventTime;
+        let result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+
+        return (order * result);
+    });
+
+    this.events = events;
+}
+
+}
+
+export interface SelectItem {
+  label?: string;
+  value: any;
+  styleClass?: string;
+  icon?: string;
+  title?: string;
+  disabled?: boolean;
 }

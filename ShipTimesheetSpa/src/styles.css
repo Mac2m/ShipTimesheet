@@ -78,3 +78,15 @@ body {
         text-align: center;
     }
 }
+
+.ui-virtualscroller .ui-virtualscroller-header {
+  text-align: center;
+  padding: .5em .75em;
+  border-bottom: 0 none;
+  background-color: gainsboro;
+  }
+
+  .ui-dropdown .ui-dropdown-panel {
+    min-width: 100%;
+    background-color: #fff;
+  }

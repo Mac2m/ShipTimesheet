@@ -8,6 +8,7 @@ import { NgxLoadingModule } from 'ngx-loading';
 import { NgbModule, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import {VirtualScrollerModule} from 'primeng/virtualscroller';
+import {DropdownModule} from 'primeng/dropdown';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -46,7 +47,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     BrowserAnimationsModule,
     FullCalendarModule,
     FontAwesomeModule,
-    VirtualScrollerModule
+    VirtualScrollerModule,
+    DropdownModule
   ],
   providers: [
     ShipTimesheetApiService,
