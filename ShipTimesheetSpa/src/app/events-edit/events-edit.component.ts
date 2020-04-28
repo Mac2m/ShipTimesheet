@@ -52,10 +52,10 @@ export class EventsEditComponent implements OnInit {
     this.loading = true;
     // let dateTime = new Date(this.event.eventTime);
     // dateTime.setHours(this.timeOfEvent.hour, this.timeOfEvent.minute);
-    let date = new Date(this.startDate);
+    let date = new Date(this.startDate.year, this.startDate.month - 1, this.startDate.day);
     date.setHours(this.timeOfEvent.hour);
     date.setMinutes(this.timeOfEvent.minute);
-    this.event.eventTime = date.toDateString();
+    this.event.eventTime = date.toISOString();
     this.api.saveEvent(this.event).subscribe(data => {
       this.loading = false;
       this.nav.navigate(['/events']);
