@@ -18,7 +18,17 @@ namespace ShipTimesheet.API.Services
 
             context.Events.Add(new EventEntity() { EventType = EventType.Arrival, EventTime = DateTime.Now, ShipId = 1});
             context.Events.Add(new EventEntity() { EventType = EventType.Arrival, EventTime = DateTime.Now - TimeSpan.FromDays(1), ShipId = 2 });
+            context.Events.Add(new EventEntity() { EventType = EventType.Departure, EventTime = DateTime.Now - TimeSpan.FromHours(8), ShipId = 2 });
+            context.Events.Add(new EventEntity() { EventType = EventType.Arrival, EventTime = DateTime.Now - TimeSpan.FromHours(6), ShipId = 2 });
+            context.Events.Add(new EventEntity() { EventType = EventType.Arrival, EventTime = DateTime.Now - TimeSpan.FromHours(4), ShipId = 2 });
             context.Events.Add(new EventEntity() { EventType = EventType.Departure, EventTime = DateTime.Now - TimeSpan.FromHours(2), ShipId = 2 });
+            context.Events.Add(new EventEntity() { EventType = EventType.Arrival, EventTime = DateTime.Now - TimeSpan.FromHours(1), ShipId = 2 });
+            context.Events.Add(new EventEntity() { EventType = EventType.Arrival, EventTime = DateTime.Now - TimeSpan.FromDays(1), ShipId = 2 });
+            context.Events.Add(new EventEntity() { EventType = EventType.Departure, EventTime = DateTime.Now - TimeSpan.FromHours(8), ShipId = 3 });
+            context.Events.Add(new EventEntity() { EventType = EventType.Arrival, EventTime = DateTime.Now - TimeSpan.FromHours(6), ShipId = 3 });
+            context.Events.Add(new EventEntity() { EventType = EventType.Arrival, EventTime = DateTime.Now - TimeSpan.FromHours(4), ShipId = 3 });
+            context.Events.Add(new EventEntity() { EventType = EventType.Departure, EventTime = DateTime.Now - TimeSpan.FromHours(2), ShipId = 3 });
+            context.Events.Add(new EventEntity() { EventType = EventType.Arrival, EventTime = DateTime.Now - TimeSpan.FromHours(1), ShipId = 3 });
 
             await context.SaveChangesAsync();
         }
